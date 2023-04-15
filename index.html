@@ -1,7 +1,116 @@
 <!DOCTYPE html>
 <html>
+<head>
+	<meta charset="UTF-8">
+    <title>Inscription</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        input[type=text], input[type=password], input[type=tel], select {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type=submit] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        input[type=submit]:hover {
+            background-color: #45a049;
+        }
+        .container {
+            padding: 16px;
+        }
+        h2 {
+            text-align: center;
+            color: #4CAF50;
+        }
+    </style>
+</head>
 <body>
-<h1>Hello World</h1>
-<p>I'm hosted with GitHub Pages.</p>
+    <form action="firstverification.php" method="post">
+        <div class="container">
+            <h2>Inscription</h2>
+            
+            <input type="text" placeholder="Entrez votre nom complet" name="nom_complet" required>
+
+           
+            <input type="tel" id="tel"  placeholder="Entrez votre numéro de téléphone" name="tel" required>
+
+            
+            <input type="password" placeholder="Entrez votre mot de passe" name="mot_de_passe" required>
+
+            
+            <input type="password" placeholder="Confirmez votre mot de passe" name="conf_mot_de_passe" required>
+
+            
+            <select name="pays" required>
+                <option value="" disabled selected>Choisissez un pays</option>
+                <option value="Bénin">Bénin</option>
+                <option value="Burkina Faso">Burkina Faso</option>
+                <option value="Burundi">Burundi</option>
+                <option value="Cameroun">Cameroun</option>
+                <option value="République centrafricaine">République centrafricaine</option>
+                <option value="Comores">Comores</option>
+                <option value="Congo">Congo</option>
+                <option value="Côte d'Ivoire">Côte d'Ivoire</option>
+                <option value="Djibouti">Djibouti</option>
+                <option value="Gabon">Gabon</option>
+                <option value="Guinée">Guinée</option>
+                <option value="Guinée-Bissau">Guinée-Bissau</option>
+                <option value="Madagascar">Madagascar</option>
+                <option value="Mali">Mali</option>
+                <option value="Niger">Niger</option>
+                <option value="République démocratique du Congo">République démocratique du Congo</option>
+                <option value="Rwanda">Rwanda</option>
+                <option value="Sénégal">Sénégal</option>
+                <option value="Seychelles">Seychelles</option>
+                <option value="Tchad">Tchad</option>
+                <option value="Togo">Togo</option>
+            </select>
+
+           
+            <input type="text" placeholder="Entrez votre code d'invitation" name="code_invitation" required>
+
+            <input type="submit" value="S'inscrire">
+        </div>
+		
+		<p>Pas encore inscrit ? <a href="lien-vers-page-de-connexion">Connectez-vous ici</a>.</p>
+		
+    </form>
+	
+	
 </body>
+
+<script>
+  const numberInput = document.getElementById("tel");
+  numberInput.addEventListener("input", function(event) {
+    const value = event.target.value;
+    if (isNaN(value) || value.length < 8) {
+      numberInput.setCustomValidity("Veuillez entrer un numéro valide avec au moins 8 chiffres.");
+    } else {
+      numberInput.setCustomValidity("");
+    }
+  });
+</script>
+
 </html>
