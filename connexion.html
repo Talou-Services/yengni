@@ -1,64 +1,90 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
+    <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Connexion</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f2f2f2;
         }
+
         form {
             background-color: #fff;
-            padding: 20px;
             border-radius: 5px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-            max-width: 500px;
-            margin: 0 auto;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            margin: 50px auto;
+            padding: 20px;
+            width: 400px;
         }
-        input[type=text], input[type=password] {
-            width: 100%;
-            padding: 12px 20px;
-            margin: 8px 0;
-            display: inline-block;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        input[type=submit] {
-            background-color: #4CAF50;
-            color: white;
-            padding: 14px 20px;
-            margin: 8px 0;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        input[type=submit]:hover {
-            background-color: #45a049;
-        }
-        .container {
-            padding: 16px;
-        }
-        h2 {
+
+        h1 {
             text-align: center;
-            color: #4CAF50;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"], input[type="tel"], input[type="password"], select{
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            box-sizing: border-box;
+            font-size: 16px;
+            margin-bottom: 20px;
+            padding: 10px;
+            width: 100%;
+            font-style: italic; /* Ajout de cette ligne pour mettre le placeholder en italique */
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 3px;
+            color: #fff;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 10px;
+            width: 100%;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #3e8e41;
+        }
+
+        .error {
+            color: #f00;
+            font-size: 14px;
+            margin-bottom: 10px;
+            text-align: center;
         }
     </style>
+    <script>
+        function validateForm() {
+            var password = document.getElementById("motdepasse").value;
+            var phoneNumber = document.getElementById("telephone").value;
+            var phoneNumberRegex = /^237(65|66|67|68|69)[0-9]{7}$/;
+
+            if (!phoneNumberRegex.test(phoneNumber)) {
+                alert("Le numéro de téléphone n'est pas valide !");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
 </head>
 <body>
-    <form action="thirdverification.php" method="post">
-        <div class="container">
-            <h2>Connexion</h2>
-
-            <input type="text" placeholder="Entrez votre numéro de téléphone" name="numero_telephone" required>
-
-            <input type="password" placeholder="Entrez votre mot de passe" name="mot_de_passe" required>
-            <input type="submit" value="Se connecter">
-        </div>
-        <div class="container" style="background-color:#f1f1f1">
-            <p>Pas encore inscrit ? <a href="lien-vers-page-d-inscription">Inscrivez-vous ici</a>.</p>
-        </div>
+    <form method="post" action="tara.php" onsubmit="return validateForm()">
+        <h1>Connexion</h1>
+        <label for="telephone">Numéro de téléphone :</label>
+        <input type="tel" id="telephone" name="telephone" placeholder="Respectez le format suivant:237XXXXXXXXX" pattern="237(65|66|67|68|69)[0-9]{7}" required>
+        <label for="motdepasse">Mot de passe :</label>
+        <input type="password" id="motdepasse" name="motdepasse" placeholder="Votre mot de passe" required>
+        <input type="submit" value="Se connecter">
+        <p>Pas encore inscrit ? <a href="inscription.html">Inscrivez-vous ici</a>.</p>
     </form>
 </body>
 </html>
