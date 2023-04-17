@@ -1,130 +1,102 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Formulaire de contact</title>
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-  <script src="https://apis.google.com/js/api.js"></script>
-  <script>
-    // Initialiser l'API Google Drive
-    function initClient() {
-      gapi.client.init({
-        'apiKey': 'VOTRE_API_KEY',
-        'clientId': 'VOTRE_CLIENT_ID',
-        'scope': 'https://www.googleapis.com/auth/drive.file',
-        'discoveryDocs': ['https://www.googleapis.com/discovery/v1/apis/drive/v3/rest']
-      }).then(function() {
-        // Appel de la fonction pour sauvegarder les données dans Google Drive
-        saveDataToDrive();
-      });
-    }
-
-    // Fonction pour sauvegarder les données dans Google Drive
-    function saveDataToDrive() {
-      // Récupérer les données du formulaire
-      var formData = new FormData(document.getElementById('votre-formulaire'));
-
-      // Créer un tableau pour stocker les données
-      var data = [];
-
-      // Boucler à travers les données du formulaire et les ajouter au tableau
-      for (var pair of formData.entries()) {
-        data.push(pair[0] + ': ' + pair[1]);
-      }
-
-      // Convertir le tableau en chaîne de caractères
-      var dataString = data.join('\n');
-
-      // Créer un fichier Excel dans Google Drive
-      gapi.client.drive.files.create({
-        'name': 'Contacts',
-        'mimeType': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-      }).then(function(response) {
-        // Récupérer l'ID du fichier créé
-        var fileId = response.result.id;
-
-        // Créer un objet de contenu pour le fichier Excel
-        var fileContent = new Blob([dataString], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
-
-        // Mettre à jour le contenu du fichier Excel
-        gapi.client.drive.files.update({
-          'fileId': fileId,
-          'media': {
-            'mimeType': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-            'body': fileContent
-          }
-        }).then(function(response) {
-          console.log('Fichier Excel sauvegardé dans Google Drive avec succès !');
-        });
-      });
-    }
-  </script>
-  <style>
-    body {
-      font-family: "Segoe UI", sans-serif;
-      background-color: #f2f2f2;
-    }
-
-    h1 {
-      text-align: center;
-      color: #333;
-    }
-
-    form {
-      max-width: 500px;
-      margin: 0 auto;
-      background-color: #fff;
-      padding: 20px;
-      border-radius: 5px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    }
-
-    label {
-      display: block;
-      margin-bottom: 10px;
-      color: #333;
-    }
-
-    input[type="text"],
-    input[type="email"],
-    textarea {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      box-sizing: border-box;
-      margin-bottom: 20px;
-      font-size: 16px;
-      resize: none;
-    }
-
-    input[type="submit"] {
-      background-color: #333;
-      color: #fff;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 16px;
-    }
-
-    input[type="submit"]:hover {
-      background-color: #555;
-    }
-  </style>
+    <title>Ma page de produits</title>
+    <style>
+        /* Styles CSS pour la page */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            text-align: center;
+            margin-top: 50px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-gap: 20px;
+        }
+        .product {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .product img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+        }
+        .product h2 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+        .product p {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        .product button {
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .product button:hover {
+            background-color: #3e8e41;
+        }
+    </style>
 </head>
 <body>
-  <h1>Formulaire de contact</h1>
-  <form id="votre-formulaire" onsubmit="initClient(); return false;" class="w3-container w3-card-4">
-    <label for="nom">Nom :</label>
-    <input type="text" id="nom" name="nom" class="w3-input"><br>
-
-    <label for="email">Email :</label>
-    <input type="email" id="email" name="email" class="w3-input"><br>
-
-    <label for="message">Message :</label>
-    <textarea id="message" name="message" class="w3-input"></textarea><br>
-
-    <input type="submit" value="Envoyer" class="w3-button w3-black">
-  </form>
+    <h1>Nos produits</h1>
+    <div class="container">
+        <div class="product">
+            <img src="cover.jpg" alt="Produit 1">
+            <h2>Concevez vos propres circuits imprimés</h2>
+            <p>Description du produit 1</p>
+            <button>Acheter</button>
+        </div>
+        <div class="product">
+            <img src="cover.jpg" alt="Produit 2">
+            <h2>Produit 2</h2>
+            <p>Description du produit 2</p>
+            <button>Acheter</button>
+        </div>
+        <div class="product">
+            <img src="cover.jpg" alt="Produit 3">
+            <h2>Produit 3</h2>
+            <p>Description du produit 3</p>
+            <button>Acheter</button>
+        </div>
+        <div class="product">
+            <img src="cover.jpg" alt="Produit 4">
+            <h2>Produit 4</h2>
+            <p>Description du produit 4</p>
+            <button>Acheter</button>
+        </div>
+        <div class="product">
+            <img src="cover.jpg" alt="Produit 5">
+            <h2>Produit 5</h2>
+            <p>Description du produit 5</p>
+            <button>Acheter</button>
+        </div>
+        <div class="product">
+            <img src="cover.jpg" alt="Produit 6">
+            <h2>Produit 6</h2>
+            <p>Description du produit 6</p>
+            <button>Acheter</button>
+        </div>
+    </div>
 </body>
 </html>
