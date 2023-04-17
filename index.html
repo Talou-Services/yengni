@@ -1,104 +1,89 @@
 <!DOCTYPE html>
 <html>
 <head>
-	
-	<meta name="viewport » content="width=device-width, initial-scale=1">
-    <title>Ma page de produits</title>
-    <style>
-        /* Styles CSS pour la page */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
-            margin: 0;
-            padding: 0;
-        }
-        h1 {
-            text-align: center;
-            margin-top: 50px;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            grid-gap: 20px;
-        }
-        .product {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            text-align: center;
-        }
-        .product img {
-            max-width: 100%;
-            height: auto;
-            margin-bottom: 10px;
-        }
-        .product h2 {
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-        }
-        .product p {
-            font-size: 1rem;
-            color: #666;
-            margin-bottom: 10px;
-        }
-        .product button {
-            background-color: #4CAF50;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        .product button:hover {
-            background-color: #3e8e41;
-        }
-    </style>
+  <title>Affiliate Sign-Up Form</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <h1>Nos produits</h1>
-    <div class="container">
-        <div class="product">
-            <img src="cover.jpg" alt="Produit 1">
-            <h2>Concevez vos propres circuits imprimés</h2>
-            <p>Description du produit 1</p>
-            <button>Acheter</button>
-        </div>
-        <div class="product">
-            <img src="cover.jpg" alt="Produit 2">
-            <h2>Produit 2</h2>
-            <p>Description du produit 2</p>
-            <button>Acheter</button>
-        </div>
-        <div class="product">
-            <img src="cover.jpg" alt="Produit 3">
-            <h2>Produit 3</h2>
-            <p>Description du produit 3</p>
-            <button>Acheter</button>
-        </div>
-        <div class="product">
-            <img src="cover.jpg" alt="Produit 4">
-            <h2>Produit 4</h2>
-            <p>Description du produit 4</p>
-            <button>Acheter</button>
-        </div>
-        <div class="product">
-            <img src="cover.jpg" alt="Produit 5">
-            <h2>Produit 5</h2>
-            <p>Description du produit 5</p>
-            <button>Acheter</button>
-        </div>
-        <div class="product">
-            <img src="cover.jpg" alt="Produit 6">
-            <h2>Produit 6</h2>
-            <p>Description du produit 6</p>
-            <button>Acheter</button>
-        </div>
+
+<div class="container">
+  <h2>Affiliate Sign-Up Form</h2>
+  <form action="https://www.example.com/affiliate-signup" method="post" class="form-horizontal">
+    <div class="form-group">
+      <label for="name" class="col-sm-2 control-label">Name:</label>
+      <div class="col-sm-10">
+        <input type="text" id="name" name="name" class="form-control" required>
+      </div>
     </div>
+
+    <div class="form-group">
+      <label for="email" class="col-sm-2 control-label">Email:</label>
+      <div class="col-sm-10">
+        <input type="email" id="email" name="email" class="form-control" required>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="phone" class="col-sm-2 control-label">Phone:</label>
+      <div class="col-sm-10">
+        <input type="tel" id="phone" name="phone" class="form-control" required>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="website" class="col-sm-2 control-label">Website:</label>
+      <div class="col-sm-10">
+        <input type="url" id="website" name="website" class="form-control" required>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="payment" class="col-sm-2 control-label">Payment Method:</label>
+      <div class="col-sm-10">
+        <select id="payment" name="payment" class="form-control" required>
+          <option value="">--Please choose an option--</option>
+          <option value="paypal">PayPal</option>
+          <option value="bank-transfer">Bank Transfer</option>
+          <option value="check">Check</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="paypal-countries" class="col-sm-2 control-label">PayPal Countries:</label>
+      <div class="col-sm-10">
+        <select id="paypal-countries" name="paypal-countries" class="form-control">
+          <option value="">--Please choose an option--</option>
+          <option value="US">United States</option>
+          <option value="CA">Canada</option>
+          <option value="GB">United Kingdom</option>
+          <option value="AU">Australia</option>
+          <option value="NZ">New Zealand</option>
+          <option value="JP">Japan</option>
+          <option value="SG">Singapore</option>
+          <option value="MY">Malaysia</option>
+          <option value="HK">Hong Kong</option>
+          <option value="TW">Taiwan</option>
+          <option value="KR">South Korea</option>
+          <option value="TH">Thailand</option>
+          <option value="PH">Philippines</option>
+          <option value="ID">Indonesia</option>
+          <option value="VN">Vietnam</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <input type="submit" value="Submit" class="btn btn-primary">
+      </div>
+    </div>
+  </form>
+</div>
+
 </body>
 </html>
