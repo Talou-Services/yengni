@@ -1,82 +1,39 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>Affiliate Sign-Up Form</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-</head>
+<html lang="en-US">
 <body>
 
-<div class="container">
-  <h2>Affiliate Sign-Up Form</h2>
-  <form action="https://www.example.com/affiliate-signup" method="post" class="form-horizontal">
-    <div class="form-group">
-      <label for="name" class="col-sm-2 control-label">Name:</label>
-      <div class="col-sm-10">
-        <input type="text" id="name" name="name" class="form-control" required>
-      </div>
-    </div>
+<h1>My Web Page</h1>
 
-    <div class="form-group">
-      <label for="email" class="col-sm-2 control-label">Email:</label>
-      <div class="col-sm-10">
-        <input type="email" id="email" name="email" class="form-control" required>
-      </div>
-    </div>
+<div id="piechart"></div>
 
-    <div class="form-group">
-      <label for="phone" class="col-sm-2 control-label">Phone:</label>
-      <div class="col-sm-10">
-        <input type="tel" id="phone" name="phone" class="form-control" required>
-      </div>
-    </div>
+<script type="text/javascript" src="../../www.gstatic.com/charts/loader.js"></script>
 
-    <div class="form-group">
-      <label for="payment" class="col-sm-2 control-label">Payment Method:</label>
-      <div class="col-sm-10">
-        <select id="payment" name="payment" class="form-control" required>
-          <option value="">--Please choose an option--</option>
-          <option value="paypal">PayPal</option>
-          <option value="bank-transfer">Bank Transfer</option>
-          <option value="check">Check</option>
-        </select>
-      </div>
-    </div>
+<script type="text/javascript">
+// Load google charts
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawChart);
 
-    <div class="form-group">
-      <label for="countries" class="col-sm-2 control-label">Countries:</label>
-      <div class="col-sm-10">
-        <select id="countries" name="countries" class="form-control">
-          <option value="">--Please choose an option--</option>
-          <option value="US">United States</option>
-          <option value="CA">Canada</option>
-          <option value="GB">United Kingdom</option>
-          <option value="AU">Australia</option>
-          <option value="NZ">New Zealand</option>
-          <option value="JP">Japan</option>
-          <option value="SG">Singapore</option>
-          <option value="MY">Malaysia</option>
-          <option value="HK">Hong Kong</option>
-          <option value="TW">Taiwan</option>
-          <option value="KR">South Korea</option>
-          <option value="TH">Thailand</option>
-          <option value="PH">Philippines</option>
-          <option value="ID">Indonesia</option>
-          <option value="VN">Vietnam</option>
-        </select>
-      </div>
-    </div>
+// Draw the chart and set the chart values
+function drawChart() {
+  var data = google.visualization.arrayToDataTable([
+  ['Task', 'Hours per Day'],
+  ['Work', 8],
+  ['Eat', 2],
+  ['TV', 4],
+  ['Gym', 2],
+  ['Sleep', 8]
+]);
 
-    <div class="form-group">
-      <div class="col-sm-offset-2 col-sm-10">
-        <input type="submit" value="Submit" class="btn btn-primary">
-      </div>
-    </div>
-  </form>
-</div>
+  // Optional; add a title and set the width and height of the chart
+  var options = {'title':'My Average Day', 'width':550, 'height':400};
+
+  // Display the chart inside the <div> element with id="piechart"
+  var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+  chart.draw(data, options);
+}
+</script>
 
 </body>
+
+<!-- Mirrored from www.w3schools.com/howto/tryit.asp?filename=tryhow_google_pie_chart by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 27 Jan 2020 02:39:20 GMT -->
 </html>
