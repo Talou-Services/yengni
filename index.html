@@ -1,116 +1,130 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-    <title>Inscription</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
-        }
-        form {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-            max-width: 500px;
-            margin: 0 auto;
-        }
-        input[type=text], input[type=password], input[type=tel], select {
-            width: 100%;
-            padding: 12px 20px;
-            margin: 8px 0;
-            display: inline-block;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        input[type=submit] {
-            background-color: #4CAF50;
-            color: white;
-            padding: 14px 20px;
-            margin: 8px 0;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        input[type=submit]:hover {
-            background-color: #45a049;
-        }
-        .container {
-            padding: 16px;
-        }
-        h2 {
-            text-align: center;
-            color: #4CAF50;
-        }
-    </style>
+  <title>Formulaire de contact</title>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <script src="https://apis.google.com/js/api.js"></script>
+  <script>
+    // Initialiser l'API Google Drive
+    function initClient() {
+      gapi.client.init({
+        'apiKey': 'VOTRE_API_KEY',
+        'clientId': 'VOTRE_CLIENT_ID',
+        'scope': 'https://www.googleapis.com/auth/drive.file',
+        'discoveryDocs': ['https://www.googleapis.com/discovery/v1/apis/drive/v3/rest']
+      }).then(function() {
+        // Appel de la fonction pour sauvegarder les données dans Google Drive
+        saveDataToDrive();
+      });
+    }
+
+    // Fonction pour sauvegarder les données dans Google Drive
+    function saveDataToDrive() {
+      // Récupérer les données du formulaire
+      var formData = new FormData(document.getElementById('votre-formulaire'));
+
+      // Créer un tableau pour stocker les données
+      var data = [];
+
+      // Boucler à travers les données du formulaire et les ajouter au tableau
+      for (var pair of formData.entries()) {
+        data.push(pair[0] + ': ' + pair[1]);
+      }
+
+      // Convertir le tableau en chaîne de caractères
+      var dataString = data.join('\n');
+
+      // Créer un fichier Excel dans Google Drive
+      gapi.client.drive.files.create({
+        'name': 'Contacts',
+        'mimeType': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      }).then(function(response) {
+        // Récupérer l'ID du fichier créé
+        var fileId = response.result.id;
+
+        // Créer un objet de contenu pour le fichier Excel
+        var fileContent = new Blob([dataString], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+
+        // Mettre à jour le contenu du fichier Excel
+        gapi.client.drive.files.update({
+          'fileId': fileId,
+          'media': {
+            'mimeType': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            'body': fileContent
+          }
+        }).then(function(response) {
+          console.log('Fichier Excel sauvegardé dans Google Drive avec succès !');
+        });
+      });
+    }
+  </script>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background-color: #f2f2f2;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    form {
+      max-width: 500px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+      margin-bottom: 20px;
+      font-size: 16px;
+      resize: none;
+    }
+
+    input[type="submit"] {
+      background-color: #333;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #555;
+    }
+  </style>
 </head>
 <body>
-    <form action="firstverification.php" method="post">
-        <div class="container">
-            <h2>Inscription</h2>
-            
-            <input type="text" placeholder="Entrez votre nom complet" name="nom_complet" required>
+  <h1>Formulaire de contact</h1>
+  <form id="votre-formulaire" onsubmit="initClient(); return false;" class="w3-container w3-card-4">
+    <label for="nom">Nom :</label>
+    <input type="text" id="nom" name="nom" class="w3-input"><br>
 
-           
-            <input type="tel" id="tel"  placeholder="Entrez votre numéro de téléphone" name="tel" required>
+    <label for="email">Email :</label>
+    <input type="email" id="email" name="email" class="w3-input"><br>
 
-            
-            <input type="password" placeholder="Entrez votre mot de passe" name="mot_de_passe" required>
+    <label for="message">Message :</label>
+    <textarea id="message" name="message" class="w3-input"></textarea><br>
 
-            
-            <input type="password" placeholder="Confirmez votre mot de passe" name="conf_mot_de_passe" required>
-
-            
-            <select name="pays" required>
-                <option value="" disabled selected>Choisissez un pays</option>
-                <option value="Bénin">Bénin</option>
-                <option value="Burkina Faso">Burkina Faso</option>
-                <option value="Burundi">Burundi</option>
-                <option value="Cameroun">Cameroun</option>
-                <option value="République centrafricaine">République centrafricaine</option>
-                <option value="Comores">Comores</option>
-                <option value="Congo">Congo</option>
-                <option value="Côte d'Ivoire">Côte d'Ivoire</option>
-                <option value="Djibouti">Djibouti</option>
-                <option value="Gabon">Gabon</option>
-                <option value="Guinée">Guinée</option>
-                <option value="Guinée-Bissau">Guinée-Bissau</option>
-                <option value="Madagascar">Madagascar</option>
-                <option value="Mali">Mali</option>
-                <option value="Niger">Niger</option>
-                <option value="République démocratique du Congo">République démocratique du Congo</option>
-                <option value="Rwanda">Rwanda</option>
-                <option value="Sénégal">Sénégal</option>
-                <option value="Seychelles">Seychelles</option>
-                <option value="Tchad">Tchad</option>
-                <option value="Togo">Togo</option>
-            </select>
-
-           
-            <input type="text" placeholder="Entrez votre code d'invitation" name="code_invitation" required>
-
-            <input type="submit" value="S'inscrire">
-        </div>
-		
-		<p>Pas encore inscrit ? <a href="lien-vers-page-de-connexion">Connectez-vous ici</a>.</p>
-		
-    </form>
-	
-	
+    <input type="submit" value="Envoyer" class="w3-button w3-black">
+  </form>
 </body>
-
-<script>
-  const numberInput = document.getElementById("tel");
-  numberInput.addEventListener("input", function(event) {
-    const value = event.target.value;
-    if (isNaN(value) || value.length < 8) {
-      numberInput.setCustomValidity("Veuillez entrer un numéro valide avec au moins 8 chiffres.");
-    } else {
-      numberInput.setCustomValidity("");
-    }
-  });
-</script>
-
 </html>
