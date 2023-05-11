@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Vérification de la connectivité Internet</title>
+</head>
+<body>
+  <div id="inscription-form" style="display:none">
+    <!-- Formulaire d'inscription ici -->
+    <h2>Inscription</h2>
+    <form>
+      <label>Nom:</label>
+      <input type="text" name="nom"><br>
+      <label>Adresse e-mail:</label>
+      <input type="email" name="email"><br>
+      <input type="submit" value="S'inscrire">
+    </form>
+  </div>
+  <div id="acces-refuse" style="display:none">
+    <!-- Page d'accès refusé ici -->
+    <h2>Accès refusé</h2>
+    <p>Veuillez vérifier votre connexion Internet et réessayer.</p>
+  </div>
+  <script>
+    function verifierConnectiviteInternet(callback) {
+      var xhr = new XMLHttpRequest();
+      var randomNum = Math.round(Math.random() * 10000); // Ajoute un paramètre aléatoire pour éviter le cache
+
+      xhr.onload = function() {
+        var isConnected = (xhr.status >= 200 && xhr.status < 300) || xhr.status === 304;
+        callback(isConnected);
+      };
+
+      xhr.onerror = function() {
+        callback(false);
+      };
+
+      xhr.open("HEAD", "https://www.google.com" + randomNum);
+      xhr.send();
+    }
+
+    verifierConnectiviteInternet(function(estConnecte) {
+      if (estConnecte) {
+        // L'appareil est connecté à Internet
+        // Afficher le formulaire d'inscription
+        document.getElementById("inscription-form").style.display = "block";
+      } else {
+        // L'appareil n'est pas connecté à Internet
+        // Afficher la page d'accès refusé
+        document.getElementById("acces-refuse").style.display = "block";
+      }
+    });
+  </script>
+</body>
+</html>
